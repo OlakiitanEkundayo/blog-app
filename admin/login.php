@@ -1,3 +1,44 @@
+<?php
+session_start();
+
+require __DIR__ . '/../includes/function.inc.php';
+
+$errors = [];
+
+$username1 = 'Olakiitan';
+$hashed_password = '$2y$10$ZdXN7cgySQ5rKV9CWqca.OY/6HXK6UEtXcgNbMyWazFlftgqu8uLa';
+
+// Show message only on redirected GET
+$showSuccessMessage = false;
+if (isset($_SESSION['login-success']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
+    $showSuccessMessage = true;
+    unset($_SESSION['login-success']); // remove after displaying
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = strip_tags(trim($_POST['username'] ?? ''));
+    $password = strip_tags(trim($_POST['password'] ?? ''));
+
+    if (!$username) {
+        $errors[] = 'Username is required';
+    }
+
+    if (!$password) {
+        $errors[] = 'Password is required';
+    }
+
+
+    if ($username === $username1 && password_verify($password, $hashed_password)) {
+        $_SESSION['login-success'] = true;
+        $_SESSION['username'] = $username;
+        header("Location: login.php"); // redirect to show success message
+        exit;
+    } else {
+        $errors[] = 'Invalid username or password';
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,21 +62,41 @@
     <div class="body">
         <div class="login-container">
             <div class="login-title">Admin Login</div>
-            <form method="post" action="admin_login.php">
+
+            <!-- Display the errors message -->
+            <?php foreach ($errors as $error): ?>
+                <div class="error-message">
+                    <p style="color: red;"><?php echo e($error); ?></p>
+                </div>
+            <?php endforeach; ?>
+
+            <!-- Display a successful message -->
+
+            <?php if ($showSuccessMessage): ?>
+                <div class="success-message">
+                    <p style="color: green; animation: fadeIn 0.5s ease-in;">Login Successful! Redirecting...</p>
+                    <div class="spinner"></div>
+                    <script>
+                        setTimeout(function() {
+                            window.location.href = "dashboard.php";
+                        }, 2000);
+                    </script>
+                </div>
+            <?php endif; ?>
+
+            <!-- Form UI -->
+            <form method="post" action="login.php">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required />
+                    <input type="text" id="username" name="username" required value="<?php echo e($_POST['username'] ?? ''); ?>" />
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required />
+                    <input type="password" id="password" name="password" />
                 </div>
 
                 <button class="login-btn" type="submit">Login</button>
-
-                <!-- Optional error message area -->
-                <!-- <div class="error-message">Invalid credentials</div> -->
             </form>
         </div>
     </div>

@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+
+require __DIR__ . '/../includes/function.inc.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,15 +29,15 @@
             <a href="#">📄 All Posts</a>
             <a href="#">➕ Add New Post</a>
             <a href="#">⚙️ Settings</a>
-            <a href="#">🚪 Logout</a>
+            <a href="logout.php">🚪 Logout</a>
         </aside>
 
         <main class="main-content">
-            <h1>Welcome back, Admin 👋</h1>
+            <h1>Welcome back, <?php echo e($_SESSION['username']); ?>. </h1>
             <div class="grid">
                 <div class="card">
                     <h2>Total Posts</h2>
-                    <p>23 published posts</p>
+                    <p>3 published posts</p>
                 </div>
 
                 <div class="card">
