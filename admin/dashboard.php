@@ -26,8 +26,8 @@ require __DIR__ . '/../includes/function.inc.php';
     <div class="dashboard">
         <aside class="sidebar">
             <h2>Navigation</h2>
-            <a href="#">📄 All Posts</a>
-            <a href="#">➕ Add New Post</a>
+            <a href="all-posts.php">📄 All Posts</a>
+            <a href="post-form.php">➕ Add New Post</a>
             <a href="#">⚙️ Settings</a>
             <a href="logout.php">🚪 Logout</a>
         </aside>
