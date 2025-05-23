@@ -1,0 +1,101 @@
+:root {
+  --bg-color: #f9f9f9;
+  --text-color: #1a1a1a;
+  --card-bg: #ffffff;
+  --accent: #6366f1;
+  --border-color: #e0e0e0;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --card-bg: #1f1f1f;
+  --accent: #818cf8;
+  --border-color: #333;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 2rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.btn-logout {
+  padding: 0.5rem 1rem;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+th,
+td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+th {
+  background-color: var(--bg-color);
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: rgba(99, 102, 241, 0.05);
+}
+
+.actions a {
+  margin-right: 0.5rem;
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.go-back {
+  color: var(--accent);
+}
+
+.dark-toggle {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-left: 1rem;
+}
+
+footer {
+  margin-top: 5rem;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: #9ca3af;
+  border-top: 1px solid var(--border-color);
+}
