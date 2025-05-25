@@ -35,6 +35,7 @@
                 <button class="cta" type="submit">Publish Post</button>
             </form>
         </div>
+        <a class="go-back" href="dashboard.php">Go back</a>
     </div>
 
     <script src="../assets/js/script.js"></script>
