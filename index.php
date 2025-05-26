@@ -1,3 +1,13 @@
+<?php
+require __DIR__ . '/includes/db.inc.php';
+require __DIR__ . '/includes/function.inc.php';
+
+$stmt = $pdo->prepare('SELECT * FROM `blog` WHERE `title` = title AND `content` = content ');
+$stmt->execute();
+
+$allblogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +22,8 @@
 </head>
 
 <body>
+
+
     <header>
         <div class="brand">Kiitan's Blog</div>
         <nav>
@@ -26,28 +38,19 @@
         <p>Thoughts, tutorials & insights from a backend dev</p>
     </section>
 
-    <section class="posts">
-        <article class="post-card">
-            <div class="post-title">Getting Started with PHP</div>
-            <div class="post-meta">May 10, 2025</div>
-            <div class="post-excerpt">Learn how to write your first PHP script and understand the basics of the language...</div>
-            <a class="read-more" href="#">Read more →</a>
-        </article>
+    <?php foreach ($allblogs as $blog): ?>
+        <section class="posts">
+            <article class="post-card">
+                <div class="post-title"><?php echo e($blog['title']); ?></div>
+                <div class="post-meta"><?php $createdAt = new DateTime($blog['uploaded_at']);
+                                        echo $createdAt->format('F j, Y \a\t g:i A'); ?>
+                    <div class="post-excerpt"><?php echo e($blog['content']); ?></div>
+                    <a class="read-more" href="#">Read more →</a>
+            </article>
 
-        <article class="post-card">
-            <div class="post-title">Building with PDO in PHP</div>
-            <div class="post-meta">May 12, 2025</div>
-            <div class="post-excerpt">PDO makes working with databases safer and more powerful. Here’s how to get started...</div>
-            <a class="read-more" href="#">Read more →</a>
-        </article>
 
-        <article class="post-card">
-            <div class="post-title">How I Designed My First Blog</div>
-            <div class="post-meta">May 15, 2025</div>
-            <div class="post-excerpt">A behind-the-scenes look at how I built and styled my developer blog from scratch...</div>
-            <a class="read-more" href="#">Read more →</a>
-        </article>
-    </section>
+        </section>
+    <?php endforeach; ?>
 
     <footer>
         © 2025 Kiitan’s Blog. All rights reserved.

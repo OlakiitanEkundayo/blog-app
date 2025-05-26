@@ -1,3 +1,19 @@
+<?php
+session_start();
+require __DIR__ . '/../includes/function.inc.php';
+require __DIR__ . '/../includes/db.inc.php';
+
+
+$showPopup = false;
+if (isset($_SESSION['post_published'])) {
+    $showPopup = true;
+    unset($_SESSION['post_published']);
+}
+
+$stmt = $pdo->prepare('SELECT * FROM `blog` WHERE `title` = title AND `content` = content');
+$stmt->execute();
+$output = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +24,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/all-posts.css">
 </head>
+
+<?php if ($showPopup): ?>
+    <div class="popup" id="popup">Post published successfully!</div>
+<?php endif; ?>
 
 <body>
     <header>
@@ -27,35 +47,22 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Getting Started with PHP</td>
-                    <td>May 10, 2025</td>
-                    <td>Published</td>
-                    <td class="actions">
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Building with PDO in PHP</td>
-                    <td>May 12, 2025</td>
-                    <td>Published</td>
-                    <td class="actions">
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>How I Designed My First Blog</td>
-                    <td>May 15, 2025</td>
-                    <td>Published</td>
-                    <td class="actions">
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
+            <?php foreach ($output as $blogDetail): ?>
+                <tbody>
+                    <tr>
+                        <td><?php echo e($blogDetail['title']); ?></td>
+                        <td><span class="date"><?php $createdAt = new DateTime($blogDetail['uploaded_at']);
+                                                echo $createdAt->format('F j, Y \a\t g:i A'); ?></span>
+                        </td>
+                        <td>Published</td>
+                        <td class="actions">
+                            <a href="#">Edit</a>
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            <?php endforeach; ?>
         </table>
         <a class="go-back" href="dashboard.php">Go back</a>
     </main>

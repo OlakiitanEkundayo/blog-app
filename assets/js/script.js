@@ -16,3 +16,10 @@ window.addEventListener("scroll", function () {
     header.classList.remove("fixed");
   }
 });
+
+// Popup
+const popup = document.getElementById("popup");
+if (popup) {
+  popup.style.display = "block";
+  setTimeout(() => (popup.style.display = "none"), 3000);
+}
