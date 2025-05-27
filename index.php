@@ -38,8 +38,8 @@ $allblogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p>Thoughts, tutorials & insights from a backend dev</p>
     </section>
 
-    <?php foreach ($allblogs as $blog): ?>
-        <section class="posts">
+    <section class="posts">
+        <?php foreach ($allblogs as $blog): ?>
             <article class="post-card">
                 <div class="post-title"><?php echo e($blog['title']); ?></div>
                 <div class="post-meta"><?php $createdAt = new DateTime($blog['uploaded_at']);
@@ -49,8 +49,8 @@ $allblogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </article>
 
 
-        </section>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </section>
 
     <footer>
         © 2025 Kiitan’s Blog. All rights reserved.

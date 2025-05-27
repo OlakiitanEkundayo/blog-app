@@ -31,7 +31,6 @@
 
                 <p>I started by sketching the layout: homepage with post cards, a single post view, and a custom admin panel. I wanted a clean, readable design that worked well on both desktop and mobile.</p>
 
-                <img src="https://via.placeholder.com/800x400" alt="Sample blog design">
 
                 <p>The entire frontend uses only HTML and CSS, with a touch of JavaScript for dark mode. The backend will be powered by PHP and MySQL, giving me full control over content and structure.</p>
 
