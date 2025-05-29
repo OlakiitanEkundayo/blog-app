@@ -53,9 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="content">Content</label>
                 <textarea id="content" name="content" required></textarea>
 
-                <!-- <label for="image">Featured Image (optional)</label>
-                <input type="file" id="image" name="image" accept="image/*" /> -->
-
                 <button class="cta" type="submit">Publish Post</button>
             </form>
         </div>
