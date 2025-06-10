@@ -1,3 +1,12 @@
+<?php
+require __DIR__ . '/includes/db.inc.php';
+require __DIR__ . '/includes/function.inc.php';
+
+$id = $_GET['id'];
+$stmt = $pdo->prepare("SELECT * FROM blog_table WHERE id = ?");
+$stmt->execute([$id]);
+$post = $stmt->fetch();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,19 +32,16 @@
 
     <div class="body">
         <main class="post-container">
-            <h1 class="post-title">How I Designed My First Blog</h1>
-            <div class="post-meta">Published on May 15, 2025</div>
+            <?php if ($post): ?>
+                <h1 class="post-title"><?php echo e($post['title']) ?></h1>
 
-            <div class="post-content">
-                <p>Designing a developer blog is a great way to showcase your skills, share your thoughts, and build an audience. In this post, I’ll walk you through the journey of building my own blog from scratch using PHP and pure CSS.</p>
-
-                <p>I started by sketching the layout: homepage with post cards, a single post view, and a custom admin panel. I wanted a clean, readable design that worked well on both desktop and mobile.</p>
-
-
-                <p>The entire frontend uses only HTML and CSS, with a touch of JavaScript for dark mode. The backend will be powered by PHP and MySQL, giving me full control over content and structure.</p>
-
-                <p>Thanks for reading! I hope this post gives you inspiration for your own developer blog. Stay tuned for more updates and tutorials!</p>
-            </div>
+                <div class="post-meta"><?php $createdAt = new DateTime($post['uploaded_at']);
+                                        echo $createdAt->format('F j, Y \a\t g:i A'); ?>
+                </div>
+                <div class="post-content">
+                    <p><?php echo e($post['content']) ?></p>
+                </div>
+            <?php endif; ?>
 
             <a class="back-link" href="index.php">← Back to homepage</a>
         </main>

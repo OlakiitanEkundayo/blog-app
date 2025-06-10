@@ -10,7 +10,7 @@ if (isset($_SESSION['post_published'])) {
     unset($_SESSION['post_published']);
 }
 
-$stmt = $pdo->prepare('SELECT * FROM `blog` WHERE `title` = title AND `content` = content');
+$stmt = $pdo->prepare('SELECT * FROM `blog_table` WHERE `title` = title AND `content` = content');
 $stmt->execute();
 $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>

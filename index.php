@@ -2,7 +2,8 @@
 require __DIR__ . '/includes/db.inc.php';
 require __DIR__ . '/includes/function.inc.php';
 
-$stmt = $pdo->prepare('SELECT * FROM `blog` WHERE `title` = title AND `content` = content ');
+$stmt = $pdo->prepare('SELECT * FROM `blog_table` ORDER BY uploaded_at DESC LIMIT 5');
+
 $stmt->execute();
 
 $allblogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -44,8 +45,8 @@ $allblogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="post-title"><?php echo e($blog['title']); ?></div>
                 <div class="post-meta"><?php $createdAt = new DateTime($blog['uploaded_at']);
                                         echo $createdAt->format('F j, Y \a\t g:i A'); ?>
-                    <div class="post-excerpt"><?php echo e($blog['content']); ?></div>
-                    <a class="read-more" href="#">Read more →</a>
+                    <div class="post-excerpt"><?php echo e(substr($blog['content'], 0, 150)); ?></div>
+                    <a class="read-more" href="post.php?id=<?= $blog['id'] ?>">Read more →</a>
             </article>
 
 

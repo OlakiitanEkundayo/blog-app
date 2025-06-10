@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = strip_tags(trim($_POST['title'] ?? ''));
         $content = strip_tags(trim($_POST['content'] ?? ''));
 
-        $stmt = $pdo->prepare("INSERT INTO `blog` (title, content) VALUES (:title, :content)");
+        $stmt = $pdo->prepare("INSERT INTO `blog_table` (title, content) VALUES (:title, :content)");
         $stmt->bindValue(':title', $title);
         $stmt->bindValue(':content', $content);
         $stmt->execute();
