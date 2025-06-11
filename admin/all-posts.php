@@ -56,8 +56,8 @@ $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </td>
                         <td>Published</td>
                         <td class="actions">
-                            <a href="#">Edit</a>
-                            <a href="#">Delete</a>
+                            <a href="edit-post.php">Edit</a>
+                            <a href="delete-post.php">Delete</a>
                         </td>
                     </tr>
 
