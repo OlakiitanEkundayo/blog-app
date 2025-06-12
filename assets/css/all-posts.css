@@ -113,3 +113,13 @@ footer {
   display: none;
   z-index: 1000;
 }
+
+.alert {
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 1rem 1.5rem;
+  border: 1px solid #10b981;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}

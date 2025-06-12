@@ -4,6 +4,17 @@ require __DIR__ . '/../includes/function.inc.php';
 require __DIR__ . '/../includes/db.inc.php';
 
 
+$message = '';
+
+if (isset($_GET['updated']) && $_GET['updated'] === 'true') {
+    $message = 'Post updated successfully.';
+}
+if (isset($_GET['deleted']) && $_GET['deleted'] === 'true') {
+    $message = 'Post deleted successfully.';
+}
+
+
+
 $showPopup = false;
 if (isset($_SESSION['post_published'])) {
     $showPopup = true;
@@ -38,6 +49,9 @@ $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <main>
         <h2>All Published Posts</h2>
+        <?php if ($message): ?>
+            <div class="alert"><?= $message ?></div>
+        <?php endif; ?>
         <table>
             <thead>
                 <tr>
@@ -56,8 +70,8 @@ $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </td>
                         <td>Published</td>
                         <td class="actions">
-                            <a href="edit-post.php">Edit</a>
-                            <a href="delete-post.php">Delete</a>
+                            <a href="edit-post.php?id=<?php echo e($blogDetail['id']); ?>">Edit</a>
+                            <a href="delete-post.php?id=<?php echo e($blogDetail['id']); ?>">Delete</a>
                         </td>
                     </tr>
 
@@ -72,6 +86,13 @@ $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
     <script src="../assets/js/script.js"></script>
+    <script>
+        setTimeout(() => {
+            const alert = document.querySelector('.alert');
+            if (alert) alert.style.display = 'none';
+        }, 3000);
+    </script>
+
 </body>
 
 </html>
